@@ -1,7 +1,7 @@
 import json
 from typing import Dict, List
 
-from src.file_utils import JSONFileStorage  # Импортируйте ваш класс
+from src.file_utils import JSONFileStorage
 
 
 def test_read_data(temp_json_file: str) -> None:
@@ -59,3 +59,30 @@ def test_delete_data_not_found(temp_json_file: str) -> None:
         result: List[Dict[str, str]] = json.load(f)
 
     assert result == initial_data
+
+
+def test_read_data_empty_file(temp_json_file: str) -> None:
+    # Убедимся, что файл пустой
+    storage: JSONFileStorage = JSONFileStorage(temp_json_file)
+    result: List[Dict[str, str]] = storage.read_data()
+    assert result == []  # Ожидаем пустой список
+
+
+def test_write_data_empty_data(temp_json_file: str) -> None:
+    storage: JSONFileStorage = JSONFileStorage(temp_json_file)
+    storage.write_data([])  # Пытаемся записать пустые данные
+
+    with open(temp_json_file, "r") as f:
+        result: List[Dict[str, str]] = json.load(f)
+
+    assert result == []  # Файл должен остаться пустым
+
+
+def test_write_and_read_data(temp_json_file: str) -> None:
+    storage: JSONFileStorage = JSONFileStorage(temp_json_file)
+    test_data: List[Dict[str, str]] = [{"id": "1", "title": "Software Engineer"}]
+
+    storage.write_data(test_data)
+    result: List[Dict[str, str]] = storage.read_data()
+
+    assert result == test_data  # Данные должны совпадать

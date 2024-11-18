@@ -37,13 +37,13 @@ def test_compare_vacancies() -> None:
 
 def test_vacancy_repr() -> None:
     vacancy: Vacancy = Vacancy(
-        title="Software Engineer", url="http://example.com", salary=100000, description="Develop software."
+        title="Software Engineer", url="http://example.com", salary=100000.0, description="Develop software."
     )
 
     expected_repr: str = (
         "Vacancy(title='Software Engineer', "
         "url='http://example.com', "
-        "salary=100000, "
+        "salary=100000.0, "
         "description='Develop software.')"
     )
     assert repr(vacancy) == expected_repr

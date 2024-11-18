@@ -14,8 +14,12 @@ class Vacancy:
     def _validate_salary(salary: Union[float, int]) -> float:
         """Валидирует значение зарплаты."""
         if salary is None or (isinstance(salary, (int, float)) and salary < 0):
-            raise ValueError("Зарплата не может быть отрицательной.")
+            return 0.0  # Устанавливаем зарплату в 0, если она отрицательная
         return float(salary)
+
+    def to_dict(self) -> dict:
+        """Возвращает словарь с атрибутами вакансии."""
+        return {"title": self.title, "url": self.url, "salary": self.salary, "description": self.description}
 
     def __lt__(self, other: "Vacancy") -> bool:
         return self.salary < other.salary

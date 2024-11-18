@@ -1,3 +1,4 @@
+import json
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -38,6 +39,11 @@ class JSONVacancyStorage(VacancyStorage):
             return  # Не добавляем дубликаты
         vacancies.append(vacancy)
         self.file_storage.write_data(vacancies)
+
+    def save(self, vacancies: Any) -> None:
+        """Сохраняет список вакансий в JSON-файл."""
+        with open(self._filename, "w", encoding="utf-8") as f:
+            json.dump(vacancies, f, ensure_ascii=False, indent=4)
 
     def get_vacancies(self, **criteria: Any) -> Any:
         """Получает вакансии по указанным критериям."""
