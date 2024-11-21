@@ -40,7 +40,7 @@ def get_vacancies_by_salary(vacancies: List[Vacancy], salary_range: str) -> List
 
 def sort_vacancies(vacancies: List[Vacancy]) -> List[Vacancy]:
     """Сортирует вакансии по зарплате."""
-    return sorted(vacancies, key=lambda x: x.salary, reverse=True)
+    return sorted(vacancies, reverse=True)
 
 
 def get_top_vacancies(vacancies: List[Vacancy], top_n: int) -> List[Vacancy]:
